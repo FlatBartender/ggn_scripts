@@ -70,7 +70,7 @@ function add_search_buttons() {
         window.open("https://en.wikipedia.org/w/index.php?search=" + title, '_blank');
         window.open("http://www.giantbomb.com/search/?indices[0]=game&q=" + title, '_blank');
 		window.open("https://www.google.com/search?q=" + title + "%20site:amazon.com", '_blank');
-		window.open("http://www.gamefaqs.com/search?game=" + title, '_blank');
+		window.open("https://gamefaqs.gamespot.com/search?game=" + title, '_blank');
         window.open("https://www.google.com/search?q=" + title + "%20site:howlongtobeat.com", '_blank');
 
         if ($("#pcwikiuri").length !== 0) {	//PC only
@@ -112,7 +112,7 @@ function add_search_buttons() {
 			else if (link.indexOf("giantbomb.com") != -1) $("#giantbomburi").val(link);
 			else if (link.indexOf("howlongtobeat.com") != -1) $("#howlongtobeaturi").val(link);
 			else if (link.indexOf("amazon.com") != -1) $("#amazonuri").val(link);
-			else if (link.indexOf("gamefaqs.com") != -1) $("#gamefaqsuri").val(link);
+			else if (link.indexOf("gamefaqs.gamespot.com") != -1) $("#gamefaqsuri").val(link);
 
 			else if (link.indexOf("vndb.org") != -1) $("#vndburi").val(link);	//PC
 			else if (link.indexOf("store.steampowered.com") != -1) $("#steamuri").val(link);
