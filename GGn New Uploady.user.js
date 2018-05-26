@@ -9,7 +9,7 @@
 // @require      https://code.jquery.com/jquery-3.1.1.min.js
 // @require      https://git.alice.gensokyo.eu/FlatBartender/ggn_scripts/raw/master/html2bb.user.js
 // @require      https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js    
-// @grant        GM_xmlHttpRequest
+// @grant        GM.xmlHttpRequest
 // ==/UserScript==
 
 var askScreens = false;
