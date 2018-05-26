@@ -126,7 +126,7 @@ function fill_screens(response) {
         $('#fill_lin').click(function () { $("#platform").val("Linux"); });
         $('#fill_mac').click(function () { $("#platform").val("Mac"); });
         $("#steamid").blur(function() {            //After the "appid" input loses focus
-            var request = new GM.xmlHttpRequest({
+            GM.xmlHttpRequest({
                 method: "GET",                             //We call the Steam API to get info on the game
                 url: "http://store.steampowered.com/api/appdetails?l=en&appids=" + $("#steamid").val(),
                 responseType: "json",
