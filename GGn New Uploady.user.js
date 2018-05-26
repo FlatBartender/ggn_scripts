@@ -39,7 +39,15 @@ function html2bb(str) {
     str = str.replace(/< *\/ *a *>/g, "");
     str = str.replace(/< *p *>/g, "\n\n");
     str = str.replace(/< *\/ *p *>/g, "");
+    str = str.replace(//g, "\"");
+    str = str.replace(//g, "\"");
     //Yeah, all these damn stars. Because people put spaces where they shouldn't.
+    while (str.indexOf("  ") !== -1) {
+        str = str.replace(/  /g, " ");
+    }
+    while (str.indexOf("\n ") !== -1) {
+        str = str.replace(/\n /g, "\n");
+    }
     str = str.replace(/\n\n\n/g, "\n\n");
     str = str.replace(/\n\n\n/g, "\n\n");
     str = str.replace(/\n\n\n/g, "\n\n");
