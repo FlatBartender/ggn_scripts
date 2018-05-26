@@ -34,6 +34,7 @@ function html2bb(str) {
     str = str.replace(/< *h[12] *>/g, "\n[align=center][u][b]");
     str = str.replace(/< *\/ *h[12] *>/g, "[/b][/u][/align]\n");
     str = str.replace(/\&quot;/g, "\"");
+    str = str.replace(/\&amp;/g, "&");
     str = str.replace(/< *img *src="([^"]*)".*>/g, "$1 [important][sup]replace this image with text, delete it, or re-host to whitelisted image host[/sup][/important]");
     str = str.replace(/< *a [^>]*>/g, "");
     str = str.replace(/< *\/ *a *>/g, "");
