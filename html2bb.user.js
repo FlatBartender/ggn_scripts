@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HTML2BBCode
 // @namespace    https://orbitalzero.ovh/scripts
-// @version      0.03
+// @version      0.04
 // @description  html2bb *tries* to convert html code to bbcode as accurately as possible
 // @author       NeutronNoir, ZeDoCaixao
 // 
@@ -37,9 +37,9 @@ function html2bb(str) {
     //Yeah, all these damn stars. Because people put spaces where they shouldn't.
     str = str.replace(//g, "\"");
     str = str.replace(//g, "\"");
-    str = str.replace(/  /g, " ");
-    str = str.replace(/\n /g, "\n");
-    str = str.replace(/\n\n\n/g, "\n\n");
+    str = str.replace(/  +/g, " ");
+    str = str.replace(/\n +/g, "\n");
+    str = str.replace(/\n\n\n+/g, "\n\n");
     str = str.replace(/\[\/b\]\[\/u\]\[\/align\]\n\n/g, "[/b][/u][/align]\n");
     str = str.replace(/\n\n\[\*\]/g, "\n[*]");
     return str;
