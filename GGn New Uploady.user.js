@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GGn New Uploady
 // @namespace    https://gazellegames.net/
-// @version      0.2000
+// @version      0.2001
 // @description  Steam Uploady for GGn
 // @author       NeutronNoir, ZeDoCaixao
 // @match        https://gazellegames.net/upload.php*
@@ -9,7 +9,7 @@
 // @require      https://code.jquery.com/jquery-3.1.1.min.js
 // @require      https://git.alice.gensokyo.eu/FlatBartender/ggn_scripts/raw/develop/html2bb.user.js
 // @require      https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js    
-// @grant        GM_xmlhttpRequest
+// @grant        GM_xmlHttpRequest
 // ==/UserScript==
 
 var askScreens = false;
@@ -126,7 +126,7 @@ function fill_screens(response) {
         $('#fill_lin').click(function () { $("#platform").val("Linux"); });
         $('#fill_mac').click(function () { $("#platform").val("Mac"); });
         $("#steamid").blur(function() {            //After the "appid" input loses focus
-            var request = new GM_xmlhttpRequest({
+            var request = new GM.xmlHttpRequest({
                 method: "GET",                             //We call the Steam API to get info on the game
                 url: "http://store.steampowered.com/api/appdetails?l=en&appids=" + $("#steamid").val(),
                 responseType: "json",
