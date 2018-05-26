@@ -114,8 +114,7 @@ function fill_screens(response) {
                 method: "GET",                  //We call the Steam API to get info on the game
                 url: "http://store.steampowered.com/api/appdetails?l=en&appids=" + $("#steamid").val(),
                 responseType: "json",
-                onload: function(response) {
-                }
+                onload: fill_screens
             });
         });
     }
