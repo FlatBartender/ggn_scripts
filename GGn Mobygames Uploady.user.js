@@ -206,7 +206,6 @@ function add_validate_button() {
             }
         });
         mobygames.tags = trimmed_tags_array.join(", ");
-        alert(mobygames.tags);
         
         mobygames.title = $(".niceHeaderTitle>a").text().trim();
         
