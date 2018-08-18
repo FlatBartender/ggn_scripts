@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         GGn Mobygames Uploady
 // @namespace    https://orbitalzero.ovh/scripts
-// @version      0.26
+// @version      0.30
 // @include      https://gazellegames.net/upload.php
 // @include      https://gazellegames.net/torrents.php?action=editgroup*
 // @include      https://www.mobygames.com/*
 // @include      http://www.mobygames.com/*
 // @description  Uploady for mobygames
-// @author       NeutronNoir
+// @author       NeutronNoir, ZeDoCaixao
 // @grant        GM_getValue
 // @grant        GM_setValue
 // @grant        GM_deleteValue
@@ -15,7 +15,6 @@
 // @grant		 GM_xmlhttpRequest
 // @require      https://code.jquery.com/jquery-3.1.1.min.js
 // @require      https://greasyfork.org/scripts/23948-html2bbcode/code/HTML2BBCode.js
-// 
 // ==/UserScript==
 
 try {
@@ -39,7 +38,7 @@ function init() {
 	else if (window.location.hostname == "www.mobygames.com") {
 		add_validate_button();
 	}
-    
+
 	GM_addStyle(button_css());
 }
 
@@ -51,7 +50,7 @@ function add_search_buttons() {
         window.open("https://www.mobygames.com/search/quick?q=" + title, '_blank');	//For every platform
 
 		var mobygames = {};
-        
+
 		GM_setValue("mobygames", JSON.stringify(mobygames));
     });
 
@@ -66,7 +65,7 @@ function add_search_buttons() {
         $("#year").val(mobygames.year);
         $("#image").val(mobygames.cover);
         $("#album_desc").val(mobygames.description);
-        
+
         var add_screen = $("a:contains('+')");
         mobygames.screenshots.forEach(function(screenshot, index) {
 			if (index >= 16) return;															//The site doesn't accept more than 16 screenshots
@@ -75,7 +74,7 @@ function add_search_buttons() {
 		});
 
         $("#platform").val(mobygames.platform);
-        
+
 		GM_deleteValue("mobygames");
 	});
 }
@@ -88,7 +87,7 @@ function add_search_buttons_alt() {
         window.open("https://www.mobygames.com/search/quick?q=" + title, '_blank');	//For every platform
 
 		var mobygames = {};
-        
+
 		GM_setValue("mobygames", JSON.stringify(mobygames));
     });
 
@@ -98,14 +97,14 @@ function add_search_buttons_alt() {
 		var mobygames = JSON.parse(GM_getValue("mobygames") || "{}");
 
         $("input[name='image']").val(mobygames.cover);
-        
+
         var add_screen = $("a:contains('+')");
         mobygames.screenshots.forEach(function(screenshot, index) {
 			if (index >= 16) return;															//The site doesn't accept more than 16 screenshots
 			if (index >= 3) add_screen.click();												//There's 3 screenshot boxes by default. If we need to add more, we do as if the user clicked on the "[+]" (for reasons mentioned above)
             $("[name='screens[]']").eq(index).val(screenshot);											//Finally store the screenshot link in the right screen field.
 		});
-        
+
 		GM_deleteValue("mobygames");
 	});
 }
@@ -199,9 +198,15 @@ function add_validate_button() {
         tags_array = tags_array.concat($("#coreGameGenre div:contains('Gameplay')").next().text().split(/[\/,]/));
         var trimmed_tags_array = [];
         tags_array.forEach(function (tag) {
-            if (tag.trim().toLowerCase().replace(" ", ".") !== "") trimmed_tags_array.push(tag.trim().toLowerCase().replace(" ", "."));
+            if (tag.trim().toLowerCase().replace(" ", ".") !== "") {
+                tag = tag.trim().toLowerCase().replace(/[  -]/g, ".").replace(/[\(\)]/g, '');
+                if (tag == "role.playing.rpg") tag = "role.playing.game";
+                if (tag == "sci.fi") tag = "science.fiction";
+                trimmed_tags_array.push(tag);
+            }
         });
         mobygames.tags = trimmed_tags_array.join(", ");
+        alert(mobygames.tags);
         
         mobygames.title = $(".niceHeaderTitle>a").text().trim();
         
