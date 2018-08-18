@@ -199,7 +199,7 @@ function add_validate_button() {
         var trimmed_tags_array = [];
         tags_array.forEach(function (tag) {
             if (tag.trim().toLowerCase().replace(" ", ".") !== "") {
-                tag = tag.trim().toLowerCase().replace(/[  -]/g, ".").replace(/[\(\)]/g, '');
+                tag = tag.trim().toLowerCase().replace(/[  -]/g, ".").replace(/[\(\)]/g, '');
                 if (tag == "role.playing.rpg") tag = "role.playing.game";
                 if (tag == "sci.fi") tag = "science.fiction";
                 trimmed_tags_array.push(tag);
