@@ -1,19 +1,23 @@
 // ==UserScript==
 // @name         GGn VGMDB Uploady
 // @namespace    https://orbitalzero.ovh/scripts
-// @version      0.04
+// @version      0.05
 // @include      https://gazellegames.net/upload.php
 // @description  Uploady for VGMDB
 // @author       NeutronNoir
-// @grant        GM_addStyle
-// @grant        GM_setClipboard
 // @require      https://code.jquery.com/jquery-3.1.1.min.js
-// @grant		 GM_xmlhttpRequest
+// @require      https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js   
+// @grant		 		 GM_xmlhttpRequest
+// @grant				 GM.xmlHttpRequest
+// @grant        GM_addStyle
+// @grant        GM.addStyle
+// @grant        GM_setClipboard
+// @grant        GM.setClipboard
 // ==/UserScript==
 
 (function() {
     $("#categories").click(function () {
-        if ($(this).find(":selected").text() == "OST") setTimeout(add_album_input, 250);
+        if ($(this).find(":selected").text() == "OST") setTimeout(add_album_input, 1000);
     });
 })();
 
@@ -22,7 +26,7 @@ function add_album_input() {
     $("#title_tr").after($('<tr><td class="label">Catalog Number</td><td><input type="text" id="catalog_number" size="60"></input>'));
     $("#catalog_number").on("blur", function () {
         var input = this;
-        var request = new GM_xmlhttpRequest({"method": "GET",								//Send the image URL to WhatIMG
+        var request = new GM.xmlHttpRequest({"method": "GET",								//Send the image URL to WhatIMG
                                            "url": "http://vgmdb.net/search?q=" + $(this).val(),
                                            "onload": function(response) {
                                                if (response.status != 200) $(input).val("Album not found");
@@ -119,7 +123,7 @@ function add_validate_button() {
         desc = desc.substring(0, desc.length - 2);
         desc += "[/pre][/align]\n\n[align=left][pre]Notes\n";
         desc += $("div.smallfont[style='padding: 10px']").html().replace(/< *br *>/g, "\n") + "[/pre][/align]";
-        GM_setClipboard(desc, "text");
+        GM.setClipboard(desc, "text");
         alert("Description copied to clipboard");
 	});
 }
