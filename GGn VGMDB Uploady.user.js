@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GGn VGMDB Uploady
 // @namespace    https://orbitalzero.ovh/scripts
-// @version      0.10
+// @version      0.11
 // @include      https://gazellegames.net/upload.php
 // @match        https://gazellegames.net/torrents.php?action=editgroup*
 // @description  Uploady for VGMDB
@@ -66,7 +66,7 @@ function upload_page_handler(env) {
   	$("#vgmdburi").val(get_link(env));
   	$("#vgmdburi").val(get_link(env));
   	$("#image").val(env.find("#coverart").css("background-image").replace(/url\("([^"]*)"\)/, "$1"));
-    $("#tags").val("soundtrack, ost");
+    // $("#tags").val("soundtrack, ost"); -> Uncomment if you need those
 }
 
 function editgroup_page_handler(env) {
