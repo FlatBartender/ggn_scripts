@@ -2,6 +2,7 @@
 // @name         GGn Get Album desc from VGMDB
 // @namespace    https://orbitalzero.ovh/scripts
 // @version      0.17
+// @include      https://vgmdb.net/album/*
 // @include      http://vgmdb.net/album/*
 // @description  Helps users to easily get an OST's info from VGMDB and get it formatted with proper BBCode
 // @author       NeutronNoir
