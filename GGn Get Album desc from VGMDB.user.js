@@ -13,6 +13,7 @@
 // @require      https://code.jquery.com/jquery-3.1.0.min.js
 // @require      https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js   
 // ==/UserScript==
+
 const button_css = `
 #gen_desc {
 	position: fixed;
@@ -20,20 +21,20 @@ const button_css = `
 	top: 0;
 	z-index: 999999;
 	cursor: pointer;
-  height: 5%;
-  background-color: lightblue;
+	height: 5%;
+	background-color: lightblue;
 }`;
 
 (function() {
-	add_validate_button();
-	GM.addStyle(button_css);
+    add_validate_button();
+		GM.addStyle(button_css);
 })();
 
 function add_validate_button() {
 	$("body").prepend('<input type="button" id="gen_desc" value="Generate description"/>');
-	$("#gen_desc").click(function() {
-		GM.setClipboard(get_desc($("html")), "text");
-		alert("Description copied to clipboard");
+	$("#gen_desc").click( function() {
+        GM.setClipboard(get_desc($("html")), "text");
+        alert("Description copied to clipboard");
 	});
 }
 
