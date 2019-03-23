@@ -101,9 +101,10 @@ function get_desc(env) {
 	desc = desc.substring(0, desc.length - 2);
 	desc += "[/pre][/align]";
 
-	var notes = env.find("#notes").html().replace(/< *br *>/g, "\n") + "[/pre][/align]";
-
-	if (env.find("div.smallfont[style='padding: 10px']").find(".label").text().startsWith("No notes available") === false) desc += "\n\n[align=left][pre]Notes\n" + notes;
+	var notes = env.find("#notes");
+	if (notes.length != 0) {
+		desc += "\n\¬[align=left][pre]Notes\n" + notes.html().replace(/< *br *>/g, "\n") + "[/pre][/align]";
+	}
 
 	return desc;
 }
