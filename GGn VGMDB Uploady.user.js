@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GGn VGMDB Uploady
 // @namespace    https://orbitalzero.ovh/scripts
-// @version      0.12
+// @version      0.13
 // @include      https://gazellegames.net/upload.php*
 // @match        https://gazellegames.net/torrents.php?action=editgroup*
 // @description  Uploady for VGMDB
