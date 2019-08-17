@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GGn VGMDB Uploady
 // @namespace    https://orbitalzero.ovh/scripts
-// @version      0.14
+// @version      0.15
 // @include      https://gazellegames.net/upload.php*
 // @match        https://gazellegames.net/torrents.php?action=editgroup*
 // @require		 https://code.jquery.com/jquery-3.4.1.min.js
@@ -34,28 +34,29 @@ function handle_page(handler, input) {
 }
 
 function insert_button_upload_page() {
-	$("#title_tr").after($('<tr><td class="label">Album Number</td><td><input type="text" id="album_number" size="60"></input>'));
-	$("#album_number").on("blur", function() {
+	$("#title_tr").after($('<tr><td class="label">Catalog Number</td><td><input type="text" id="catalog_number" size="60"></input>'));
+	$("#catalog_number").on("blur", function() {
 		var input = this;
 		var request = new GM.xmlHttpRequest({
 			"method": "GET", //Send the image URL to WhatIMG
-			"url": "http://vgmdb.net/album/" + $(this).val(),
+			"url": "http://vgmdb.net/search?q=" + $(this).val(),
 			"onload": handle_page(upload_page_handler, input)
 		});
 	});
 }
 
 function insert_button_editgroup_page() {
-	$("input[name='aliases']").after($('<span>Album Number</span><input type="text" id="album_number" size="60"></input>'));
-	$("#album_number").on("blur", function() {
+	$("input[name='aliases']").after($('<span>Catalog Number: </span><input type="text" id="catalog_number" size="60"></input>'));
+	$("#catalog_number").on("blur", function() {
 		var input = this;
 		var request = new GM.xmlHttpRequest({
 			"method": "GET", //Send the image URL to WhatIMG
-			"url": "http://vgmdb.net/album/" + $(this).val(),
+			"url": "http://vgmdb.net/search?q=" + $(this).val(),
 			"onload": handle_page(editgroup_page_handler, input)
 		});
 	});
 }
+
 function upload_page_handler(env) {
 	$("#aliases").val(get_aliases(env));
 	$("#album_desc").val(get_desc(env));
