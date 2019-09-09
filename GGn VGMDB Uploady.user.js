@@ -40,7 +40,7 @@ function insert_button_upload_page() {
 		var request = new GM.xmlHttpRequest({
 			"method": "GET", //Send the image URL to WhatIMG
 			"url": "http://vgmdb.net/album/" + $(this).val(),
-			"onload": handle_page(editgroup_page_handler, input)
+			"onload": handle_page(upload_page_handler, input)
 		});
 	});
 }
