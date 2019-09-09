@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GGn New Uploady
 // @namespace    https://gazellegames.net/
-// @version      0.2001
+// @version      0.2002
 // @description  Steam Uploady for GGn
 // @author       NeutronNoir, ZeDoCaixao
 // @match        https://gazellegames.net/upload.php*
@@ -10,6 +10,7 @@
 // @require      https://git.alice.gensokyo.eu/FlatBartender/ggn_scripts/raw/master/html2bb.user.js
 // @require      https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js    
 // @grant        GM.xmlHttpRequest
+// @grant        GM_xmlhttpRequest
 // ==/UserScript==
 
 var askScreens = false;
@@ -80,14 +81,24 @@ function fill_upload_form(response) {
 }
 
 
-function fill_screens(response) {
+function fill_editgroup_form(response) {
     //We store the data in gameInfo, since it's much easier to access this way
     var gameInfo = response.response[$("#steamid").val()].data;
-
+  
+  	// All hail code dupe! Yeah, there are no ID in the editgroup page.
+  
+  	$("input[name='name']").val(gameInfo.name);  //Get the name of the game
+    var about = gameInfo.about_the_game;
+    if (about === '') { about = gameInfo.detailed_description; }
+    $("textarea[name='body']").val("[align=center][b][u]About the game[/u][/b][/align]\n" + html2bb(about));
+    //Get the year, which is actually the last number of "release_date.date"
+    $("input[name='year']").val(gameInfo.release_date.date.split(", ").pop());
+  
     var addScreens = true;
     if (askScreens) addScreens = confirm("Fill the screenshot boxes ?");
     if (!addScreens) { return; }
     //Get the image URL
+  
     $("input[name='image']").val(gameInfo.header_image.split("?")[0]);
     //Get each element corresponding to a screenshot
     var screens = document.getElementsByName("screens[]");
@@ -103,19 +114,50 @@ function fill_screens(response) {
         //Finally store the screenshot link in the right screen field.
         screens[index].value = screen.path_full.split("?")[0];
     });
+  
+  	var request = new GM.xmlHttpRequest({
+      	method: "GET",
+      	url: `https://gazellegames.net/torrents.php?id=${$("#steamid").val()}`,
+      	onload: function (response) {
+          	let html = $(response.responseText);
+          	let platform = html.find("#curlinkedgroup").attr("class");
+            //Now let's get the requirements
+            var recfield = gameInfo.pc_requirements;
+            switch (platform) {
+                case "windows":
+                    recfield = gameInfo.pc_requirements;
+                    break;
+                case "linux":
+                     recfield = gameInfo.linux_requirements;
+                    break;
+                case "mac":
+                    recfield = gameInfo.mac_requirements;
+                    break;
+            }
+            var sr = html2bb(recfield.minimum) + "\n" + html2bb(recfield.recommended);
+            $("textarea[name='body']").val(
+                $("textarea[name='body']").val() +
+                "\n\n[quote][align=center][b][u]System Requirements[/u][/b][/align]\n\n" +
+                pretty_sr(html2bb(recfield.minimum+"\n"+recfield.recommended)) +
+                "[/quote]");
+    		}
+    }); 
 }
 
+function finish_editgroup_fill(response) {
+  
+}
 
 (function() {
     'use strict';
-    if (window.location.href.search("action=editgroup") != -1) {
+    if (window.location.href.includes("action=editgroup")) {
         $("td.center").parent().after("<tr><td class='label'>Steam ID</td><td><input id='steamid' /></td></tr>");
-        $("steamid").blur(function() { //After the "appid" input loses focus
-            var request = new GM_xmlhttpRequest({
+        $("#steamid").blur(function() { //After the "appid" input loses focus
+            var request = new GM.xmlHttpRequest({
                 method: "GET",                  //We call the Steam API to get info on the game
                 url: "http://store.steampowered.com/api/appdetails?l=en&appids=" + $("#steamid").val(),
                 responseType: "json",
-                onload: fill_screens
+                onload: fill_editgroup_form
             });
         });
     }
