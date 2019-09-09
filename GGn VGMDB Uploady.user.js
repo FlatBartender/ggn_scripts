@@ -34,7 +34,7 @@ function handle_page(handler, input) {
 }
 
 function insert_button_upload_page() {
-	$("#title_tr").after($('<tr><td class="label">Catalog Number</td><td><input type="text" id="album_vgmdb_id" size="60"></input>'));
+	$("#title_tr").after($('<tr><td class="label">VGMDB ID</td><td><input type="text" id="album_vgmdb_id" size="60"></input>'));
 	$("#album_vgmdb_id").on("blur", function() {
 		var input = this;
 		var request = new GM.xmlHttpRequest({
@@ -46,7 +46,7 @@ function insert_button_upload_page() {
 }
 
 function insert_button_editgroup_page() {
-	$("input[name='aliases']").after($('<span>Catalog Number: </span><input type="text" id="album_vgmdb_id" size="60"></input>'));
+	$("input[name='aliases']").after($('<span>VGMDB ID: </span><input type="text" id="album_vgmdb_id" size="60"></input>'));
 	$("#album_vgmdb_id").on("blur", function() {
 		var input = this;
 		var request = new GM.xmlHttpRequest({
