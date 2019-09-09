@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         GGn VGMDB Uploady
 // @namespace    https://orbitalzero.ovh/scripts
-// @version      0.15
+// @version      0.16_id
 // @include      https://gazellegames.net/upload.php*
 // @match        https://gazellegames.net/torrents.php?action=editgroup*
 // @require		 https://code.jquery.com/jquery-3.4.1.min.js
 // @description  Uploady for VGMDB
-// @author       NeutronNoir
+// @author       NeutronNoir, furtherentity
 // @require      https://greasemonkey.github.io/gm4-polyfill/gm4-polyfill.js   
 // @grant		 GM_xmlhttpRequest
 // @grant		 GM.xmlHttpRequest
@@ -34,24 +34,24 @@ function handle_page(handler, input) {
 }
 
 function insert_button_upload_page() {
-	$("#title_tr").after($('<tr><td class="label">Catalog Number</td><td><input type="text" id="catalog_number" size="60"></input>'));
-	$("#catalog_number").on("blur", function() {
+	$("#title_tr").after($('<tr><td class="label">Catalog Number</td><td><input type="text" id="album_vgmdb_id" size="60"></input>'));
+	$("#album_vgmdb_id").on("blur", function() {
 		var input = this;
 		var request = new GM.xmlHttpRequest({
 			"method": "GET", //Send the image URL to WhatIMG
-			"url": "http://vgmdb.net/search?q=" + $(this).val(),
-			"onload": handle_page(upload_page_handler, input)
+			"url": "http://vgmdb.net/album/" + $(this).val(),
+			"onload": handle_page(editgroup_page_handler, input)
 		});
 	});
 }
 
 function insert_button_editgroup_page() {
-	$("input[name='aliases']").after($('<span>Catalog Number: </span><input type="text" id="catalog_number" size="60"></input>'));
-	$("#catalog_number").on("blur", function() {
+	$("input[name='aliases']").after($('<span>Catalog Number: </span><input type="text" id="album_vgmdb_id" size="60"></input>'));
+	$("#album_vgmdb_id").on("blur", function() {
 		var input = this;
 		var request = new GM.xmlHttpRequest({
 			"method": "GET", //Send the image URL to WhatIMG
-			"url": "http://vgmdb.net/search?q=" + $(this).val(),
+			"url": "http://vgmdb.net/album/" + $(this).val(),
 			"onload": handle_page(editgroup_page_handler, input)
 		});
 	});
