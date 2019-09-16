@@ -60,7 +60,6 @@ function upload_page_handler(env) {
 	$("#title").val(get_title(env));
 	$("#year").val(get_year(env));
 	$("#image").val(env.find("#coverart").css("background-image").replace(/url\("([^"]*)"\)/, "$1"));
-	$("#tags").val("soundtrack, ost");
 }
 
 function editgroup_page_handler(env) {
@@ -82,14 +81,7 @@ function get_year(env) {
 }
 
 function get_title(env) {
-	var composers = env.find("#album_infobit_large>tbody>tr>td>span>b:contains('Composed by')")
-		.parent().parent().parent()
-		.find("td").last().text().trim().split(", ");
-
-	let title = env.find(".albumtitle").first().text();
-
-	if (composers.length >= 2) return title + " by Various Artists";
-	else return title + " by " + composers[0];
+	return env.find(".albumtitle").first().text();
 }
 
 function get_aliases(env) {
