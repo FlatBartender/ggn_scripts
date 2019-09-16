@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         RED VGMDB Uploady
 // @namespace    https://orbitalzero.ovh/scripts
-// @version      0.15
+// @version      0.16
 // @include      https://redacted.ch/upload.php*
 // @require		 https://code.jquery.com/jquery-3.4.1.min.js
 // @description  Uploady for VGMDB
